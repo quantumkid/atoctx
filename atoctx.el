@@ -1,6 +1,6 @@
 (defun convert-cite-to-context (start end)
   "Converts cite commands from LaTeX to ConTeXt."
-  (interactive "r")
+  (interactive "*r")
   (push-mark)
   (save-restriction
     (narrow-to-region start end)
@@ -18,7 +18,7 @@
 
 (defun convert-emph-to-context (start end)
   "Converts emph commands from LaTeX to ConTeXt."
-  (interactive "r")
+  (interactive "*r")
   (push-mark)
   (save-restriction
     (narrow-to-region start end)
@@ -30,7 +30,7 @@
 
 (defun convert-footnote-to-context (start end)
   "Converts footnote commands from LaTeX to ConTeXt."
-  (interactive "r")
+  (interactive "*r")
   (push-mark)
   (save-restriction
     (narrow-to-region start end)
@@ -49,7 +49,7 @@
 
 (defun convert-enumerate-to-context (start end)
   "Converts enumerate commands from LaTeX to ConTeXt."
-  (interactive "r")
+  (interactive "*r")
   (push-mark)
   (save-restriction
     (narrow-to-region start end)
@@ -63,19 +63,19 @@
 
 (defun convert-equation-to-context (start end)
   "Converts equation commands from AMSTeX to ConTeXt."
-  (interactive "r")
+  (interactive "*r")
   (convert-amsmath-to-context start end "equation")
   )
 
 (defun convert-align-to-context (start end)
   "Converts align commands from AMSTeX to ConTeXt."
-  (interactive "r")
+  (interactive "*r")
   (convert-amsmath-to-context start end "align")
   )
 
 (defun convert-gather-to-context (start end)
   "Converts gather commands from AMSTeX to ConTeXt."
-  (interactive "r")
+  (interactive "*r")
   (convert-amsmath-to-context start end "gather")
   )
 
