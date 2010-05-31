@@ -1,3 +1,13 @@
+(defun convert-buffer-to-context ()
+  "Converts the whole buffer to ConTeXt syntax"
+  (interactive "*")
+  (convert-cite-to-context (point-min) (point-max))
+  (convert-emph-to-context (point-min) (point-max))
+  (convert-footnote-to-context (point-min) (point-max))
+  (convert-enumerate-to-context (point-min) (point-max))
+  (convert-amsmath-to-context (point-min) (point-max))
+  )  
+
 (defun convert-cite-to-context (start end)
   "Converts cite commands from LaTeX to ConTeXt."
   (interactive "*r")
@@ -61,25 +71,33 @@
     )
   )
 
+(defun convert-amsmath-to-context (start end)
+  "Convert all AMSTeX environments in region to ConTeXt syntax."
+  (convert-equation-to-context start end)
+  (convert-align-to-context start end)
+  (convert-gather-to-context start end)
+  )
+
 (defun convert-equation-to-context (start end)
   "Converts equation commands from AMSTeX to ConTeXt."
   (interactive "*r")
-  (convert-amsmath-to-context start end "equation")
+  (convert-amsmath-environ-to-context start end "equation")
   )
 
 (defun convert-align-to-context (start end)
   "Converts align commands from AMSTeX to ConTeXt."
   (interactive "*r")
-  (convert-amsmath-to-context start end "align")
+  (convert-amsmath-environ-to-context start end "align")
   )
 
 (defun convert-gather-to-context (start end)
   "Converts gather commands from AMSTeX to ConTeXt."
   (interactive "*r")
-  (convert-amsmath-to-context start end "gather")
+  (convert-amsmath-environ-to-context start end "gather")
   )
 
-(defun convert-amsmath-to-context (start end environ)
+(defun convert-amsmath-environ-to-context (start end environ)
+  "Convert amsmath environment to ConTeXt."
   (push-mark)
   (save-restriction
     (narrow-to-region start end)
