@@ -1,3 +1,14 @@
+;; atoctx.el
+;;
+;; Converts some LaTeX syntax to ConTeXt
+;;
+;;
+;; Copyright Michael Murphy 2010.
+;; Distributed under the GPL. See LICENSE.txt for details.
+;;
+;; Known bugs (a.k.a. TODO):
+;; * does not handle the 'split' environment in equations
+
 (defun convert-buffer-to-context ()
   "Converts the whole buffer to ConTeXt syntax"
   (interactive "*")
