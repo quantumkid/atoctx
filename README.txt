@@ -1,6 +1,6 @@
 INSTALLATION:
 
-Put atoctx.el somewhere that emacs can find it, or add it's path to the
+Put atoctx.el somewhere that emacs can find it, or add its path to the
 set of load paths in .emacs:
 
 (add-to-list 'load-path "path/to/atoctx")
