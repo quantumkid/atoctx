@@ -116,6 +116,7 @@
     (goto-char (point-min))
     (while (re-search-forward "\\\\begin{enumerate}" nil t)
       (replace-match "\\\\startitemize[packed,inmargin,joinedup]") nil)
+    (goto-char (point-min))
     (while (re-search-forward "\\\\end{enumerate}" nil t)
       (replace-match "\\\\stopitemize") nil)
     )
