@@ -191,6 +191,8 @@
 		   (if (re-search-forward "=\\|\\\\equiv" nil t) (replace-match "\\\\NC =")))))
       ;; put NR at nil with label (if any)
       (goto-char (point-max))
+      ;; ConTeXt doesn't like underscores
+      (setq label (substitute ?\- ?\_ label))
       (insert (concat "\\NR" label "\n"))) ;; end let
     )
   )
