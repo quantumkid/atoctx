@@ -235,7 +235,8 @@
 	  ;; look for the closing part
 	  (re-search-forward "\\\\end{figure}" nil t)
 	  (replace-match "")
-	  (setq fend (match-beginning 0))
+	  (setq fend (make-marker))
+	  (set-marker fend (match-beginning 0))
 	  (goto-char fstart)
 	  ;; look for a label
 	  (if (re-search-forward "\\\\label{\\(.*?\\)}" fend t)
@@ -252,7 +253,7 @@
 	  (insert label)
 	  (setq fstart (point))
 	  ;; look for a caption, possibly over more than one line
-	  (if (re-search-forward "\\\\caption{" fend t)
+	  (if (re-search-forward "\\\\caption{" (marker-position fend) t)
 	      ;; eat the caption
 	      (let (p1 p2 p3)
 		(setq p1 (match-beginning 0))
@@ -267,7 +268,7 @@
 	  (fill-region fstart (point))
 	  (setq fstart (point))
 	  ;; look for figure insertion
-	  (if (re-search-forward "\\\\includegraphics{\\(.*?\\)}" fend t)
+	  (if (re-search-forward "\\\\includegraphics{\\(.*?\\)}" (marker-position fend) t)
 	      ;; eat the caption
 	      (let (p1 p2)
 		(setq p1 (match-beginning 0))
@@ -280,8 +281,9 @@
 		(setq allfigures (cons figure allfigures))
 		(goto-char fstart)
 		(insert (concat "{\\externalfigure[" figure "]}"))))
-	  ;; eat newlines
-	  (while (looking-at "\\( \\)*\n[ \n]+") (kill-line) nil)
+	  ;; whatever is left over is not important (probably)
+	  ;; (while (looking-at "\\( \\)*\n[ \n]+") (kill-line) nil)
+	  (kill-region (point) (marker-position fend)) 
 	  )
 	nil)
       (goto-char (point-min))
