@@ -38,6 +38,23 @@
     )
   )
 
+(defun convert-ref-to-context (start end)
+  "Converts ref commands from LaTeX to ConTeXt"
+  (interactive "*r")
+  (push-mark)
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (let (ref)
+      (while (re-search-forward "\\\\ref{\\(\\(.\\|\n\\)*?\\)}" nil t)
+	;; ConTeXt doesn't like underscores in label names
+	(setq ref (substitute ?\- ?\_ (match-string 1)))
+	(replace-match (concat "\\\\in[" ref "]"))
+	nil)
+      )
+    )
+  )
+
 (defun convert-emph-to-context (start end)
   "Converts emph commands from LaTeX to ConTeXt."
   (interactive "*r")
