@@ -8,6 +8,10 @@
 ;;
 ;; Known bugs (a.k.a. TODO):
 ;; * does not handle the 'split' environment in equations
+;;
+;; The following need to be defined somewhere:
+;;
+;; \definereferenceformat[ineq][left=(,right=)]
 
 (defun convert-buffer-to-context ()
   "Converts the whole buffer to ConTeXt syntax"
@@ -50,6 +54,23 @@
 	;; ConTeXt doesn't like underscores in label names
 	(setq ref (substitute ?\- ?\_ (match-string 1)))
 	(replace-match (concat "\\\\in[" ref "]"))
+	nil)
+      )
+    )
+  )
+
+(defun convert-eqref-to-context (start end)
+  "Converts eqref commands from AMSTeX to ConTeXt"
+  (interactive "*r")
+  (push-mark)
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (let (ref)
+      (while (re-search-forward "\\\\eqref{\\(\\(.\\|\n\\)*?\\)}" nil t)
+	;; ConTeXt doesn't like underscores in label names
+	(setq ref (substitute ?\- ?\_ (match-string 1)))
+	(replace-match (concat "\\\\ineq[" ref "]"))
 	nil)
       )
     )
