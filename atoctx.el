@@ -18,6 +18,7 @@
   (interactive "*")
   (convert-cite-to-context (point-min) (point-max))
   (convert-emph-to-context (point-min) (point-max))
+  (convert-quote-to-context (point-min) (point-max))
   (convert-footnote-to-context (point-min) (point-max))
   (convert-enumerate-to-context (point-min) (point-max))
   (convert-amsmath-to-context (point-min) (point-max))
@@ -87,6 +88,23 @@
       (replace-match "{\\\\em \\1}") nil)
     )
   )
+
+(defun convert-quote-to-context (start end)
+  "Converts quotes (i.e. `' and ``'' pairs) from LaTeX to ConTeXt."
+  (interactive "*r")
+  (push-mark)
+  (save-restriction
+    (narrow-to-region start end)
+    (goto-char (point-min))
+    (while (re-search-forward "``\\(\\(.\\|\n\\)*?\\)''" nil t)
+      (replace-match "\\\\quotation{\\1}") nil)
+    (goto-char (point-min))
+    (while (re-search-forward "`\\(\\(.\\|\n\\)*?\\)'" nil t)
+      (replace-match "\\\\quote{\\1}") nil)
+    )
+  )
+
+(
 
 (defun convert-footnote-to-context (start end)
   "Converts footnote commands from LaTeX to ConTeXt."
