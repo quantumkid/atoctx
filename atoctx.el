@@ -1,17 +1,20 @@
-;; atoctx.el
-;;
-;; Converts some LaTeX syntax to ConTeXt
-;;
-;;
-;; Copyright Michael Murphy 2010.
+;;; atoctx.el --- Converts some LaTeX syntax to ConTeXt
+
+;; Copyright (c) 2010  Michael Murphy
 ;; Distributed under the GPL. See LICENSE.txt for details.
-;;
-;; Known bugs (a.k.a. TODO):
-;; * does not handle the 'split' environment in equations
+
+;;; Commentary:
+
+;; Converts some LaTeX syntax to ConTeXt.
 ;;
 ;; The following need to be defined somewhere:
 ;;
 ;; \definereferenceformat[ineq][left=(,right=)]
+;;
+;; Known bugs (a.k.a. TODO):
+;; * does not handle the 'split' environment in equations
+
+;;; Code:
 
 (defun convert-buffer-to-context ()
   "Converts the whole buffer to ConTeXt syntax"
@@ -103,8 +106,6 @@
       (replace-match "\\\\quote{\\1}") nil)
     )
   )
-
-(
 
 (defun convert-footnote-to-context (start end)
   "Converts footnote commands from LaTeX to ConTeXt."
